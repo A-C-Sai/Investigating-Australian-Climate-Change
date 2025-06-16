@@ -1,0 +1,7 @@
+.DS_Store
+datasets/original
+datasets/final_datasets
+datasets/climate.db
+web-app/
+__pycache__/
+
