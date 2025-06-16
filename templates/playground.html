@@ -1,0 +1,74 @@
+<!-- Use to Experiment with Layouts in isolated file; to be used with playground.css-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../static/css/playground.css" />
+
+    <title>Australian Climate &mdash; Playground</title>
+  </head>
+  <body>
+    <form class="sort-dropdown">
+      <div class="sort-dropdown-section">
+        <p class="cloumns-list-title">Sort by</p>
+        <div class="cloumns-list">
+          <div class="sort-dropdown-input">
+            <input type="radio" id="Date" name="column" value="Date" />
+            <label for="Date">Date</label><br />
+          </div>
+
+          <div class="sort-dropdown-input">
+            <input type="radio" id="From" name="column" value="From" />
+            <label for="From">From</label><br />
+          </div>
+
+          <div class="sort-dropdown-input">
+            <input type="radio" id="Category" name="column" value="Category" />
+            <label for="Category">Category</label><br />
+          </div>
+
+          <div class="sort-dropdown-input">
+            <input type="radio" id="Size" name="column" value="Size" />
+            <label for="Size">Size</label><br />
+          </div>
+
+          <div class="sort-dropdown-input">
+            <input type="radio" id="Importance" name="column" value="Importance" />
+            <label for="Importance">Importance</label><br />
+          </div>
+
+          <div class="sort-dropdown-input">
+            <input type="radio" id="Subject" name="column" value="Subject" />
+            <label for="Subject">Subject</label><br />
+          </div>
+        </div>
+      </div>
+
+      <div class="sort-dropdown-section">
+        <p class="sort-order-title">Sort order</p>
+        <div class="sort-order-list">
+          <div class="sort-dropdown-input">
+            <input type="radio" id="Ascending" name="sort-order" value="Ascending" />
+            <label for="Ascending">Ascending</label><br />
+          </div>
+          <div class="sort-dropdown-input">
+            <input type="radio" id="Descending" name="sort-order" value="Descending" />
+            <label for="Descending">Descending</label><br />
+          </div>
+          <button class="sort-table">Sort</button>
+        </div>
+      </div>
+    </form>
+  </body>
+</html>
