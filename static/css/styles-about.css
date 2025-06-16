@@ -1,0 +1,642 @@
+/* 
+
+--- 01 TYPOGRAPHY SYSTEM
+
+- FONT SIZE SYSTEM (px)
+10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+
+- FONT WEIGHTS
+Default: 400
+500
+600
+
+- LINE HEIGHTS
+Default: 1
+1.2
+1.7
+
+- LETTER SPACING:
+2px
+
+
+--- 02 COLORS
+
+#D9660E#fbf0e7#160a01
+#391E07
+#4E2B0A
+#6C3913
+#95400B
+#0f0f0f
+#fff
+#555
+#f7f7f7
+#f1f1f1
+rgba(0, 0, 0, 0.3)
+
+
+-- 06 BORDER-RADIUS
+Default: 9px
+11px
+
+
+
+-- 07 WHITESPACE
+
+- SPACING SYSTEM (px)
+2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+
+-- 08 BOX SHADOW
+0 15px 20px 0 rgb(0 0 0 / 20%);
+
+*/
+
+/* 
+#############################
+  GENERAL SYLES
+#############################
+*/
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Rubik", sans-serif;
+  line-height: 1;
+  color: #0f0f0f;
+}
+
+.hidden {
+  display: none;
+}
+
+.container {
+  max-width: 120rem;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  row-gap: 12.8rem;
+  column-gap: 2.4rem;
+}
+.grid--2-cols {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+strong {
+  font-weight: 500;
+}
+
+/* .main {
+  padding: 0 6.4rem;
+} */
+
+/* 
+#############################
+  NAVIGATION
+#############################
+*/
+
+/* 
+header
+logo-link
+logo
+main-nav
+main-nav-list
+main-nav-link
+main-nav-dropdown
+btn
+open-dropdown
+close-dropdown
+dropdown
+right-arrow
+dropdown-link */
+
+.sticky-nav {
+  background-color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 8;
+}
+
+.header {
+  padding: 3.2rem 6.4rem;
+  position: relative;
+  margin-bottom: 3.2rem;
+}
+
+.logo-link {
+  position: absolute;
+  top: 50%;
+  left: 6.4rem;
+  transform: translateY(-50%);
+}
+.logo {
+  height: 7.2rem;
+  width: 7.2rem;
+  fill: #d9660e;
+}
+
+.main-nav-list {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3.2rem;
+}
+.main-nav-link:link,
+.main-nav-link:visited {
+  font-size: 1.6rem;
+  text-decoration: none;
+  color: inherit;
+  text-transform: uppercase;
+}
+.main-nav-link:hover,
+.main-nav-link:active {
+  color: #d9660e;
+}
+
+.btn--nav {
+  /* all: unset; */
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1.6rem;
+  line-height: 1;
+  text-transform: uppercase;
+  padding: 0.8rem 1.6rem;
+
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.btn--nav:hover {
+  color: #d9660e;
+}
+
+.main-nav-dropdown {
+  position: relative;
+}
+
+.dropdown {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  list-style: none;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 110%);
+
+  width: max-content;
+  padding: 3.2rem 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+.dropdown li {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  gap: 0.8rem;
+}
+.dropdown--close {
+  display: none;
+}
+
+.dropdown-btn {
+  font-size: 1.6rem;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 1.6rem 3.2rem;
+  flex: 1;
+}
+.dropdown-btn:hover {
+  color: #d9660e;
+}
+.right-arrow,
+.left-arrow {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+.dropdown-option {
+  position: relative;
+  /* background-color: lightcoral; */
+}
+
+.layer-2-dropdown {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  list-style: none;
+  top: 0;
+  left: 100%;
+  width: max-content;
+  padding: 3.2rem 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+.layer-2-dropdown--close {
+  /* To be used in JS */
+  display: none;
+}
+
+.layer-2-dropdown li {
+  display: block;
+  text-align: center;
+}
+
+.layer-2-nav-link:link,
+.layer-2-nav-link:visited {
+  padding: 1.6rem 3.2rem;
+  display: block;
+  /* background-color: lightblue; */
+  text-decoration: none;
+  color: inherit;
+  text-transform: uppercase;
+
+  font-size: 1.6rem;
+  line-height: 1;
+  color: #fff;
+  cursor: pointer;
+  font-family: inherit;
+}
+.layer-2-nav-link:hover,
+.layer-2-nav-link:active {
+  color: #d9660e;
+}
+
+/* 
+######################
+    About Section
+######################
+*/
+
+/* main
+section-about
+heading--secondary
+project-description-box
+project-description-1
+project-description-1
+project-description-1
+ul -> li -> p
+mission-statement-box
+mission-statement-1
+mission-statement-1 */
+
+.project-description-box,
+.mission-statement-box {
+  font-size: 1.8rem;
+  line-height: 1.8;
+  background-color: #f7f7f7;
+  padding: 3.2rem 6.4rem;
+}
+
+.project-description-box {
+  grid-column: 2/-1;
+}
+.mission-statement-box {
+  grid-column: 1/3;
+}
+
+.heading--secondary {
+  font-size: 6.2rem;
+}
+
+.project-description-1,
+.project-description-2,
+.mission-statement-1 {
+  margin-bottom: 2.4rem;
+}
+.project-description-3 {
+  margin-bottom: 0.8rem;
+}
+.project-description-box ul {
+  margin-left: 3.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  font-size: 1.6rem;
+}
+
+.section-about {
+  margin-bottom: 9.6rem;
+}
+
+/* 
+##############################
+    Use Cases Section
+##############################
+*/
+
+/* section-use-cases
+heading-use-cases
+use-cases-text-box
+use-cases-text
+accordian
+    - element
+        - number
+        - sector
+        - read-more
+        - read-less     
+        - more
+            - ul -> li -> p */
+
+.section-use-cases {
+  padding: 9.6rem 0;
+  background-color: #fbf0e7;
+}
+.section-use-cases .container {
+  padding: 0 6.4rem;
+}
+
+.heading-use-cases {
+  margin-bottom: 3.2rem;
+}
+.use-cases-text-box {
+  font-size: 1.8rem;
+  line-height: 1.8;
+  width: 60%;
+  margin-bottom: 3.2rem;
+}
+
+.accordian {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.element {
+  background-color: #fff;
+  padding: 2.4rem;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  row-gap: 2.4rem;
+  column-gap: 2.4rem;
+}
+
+.element .number {
+  font-size: 4.4rem;
+  font-weight: 600;
+  color: #f1f1f1;
+}
+.changeTextColor {
+  /* This class will be used in Javascript */
+  color: #d9660e !important;
+}
+.addBoxShadow {
+  /* This class will be used in Javascript */
+  box-shadow: inset 0 4px #d9660e;
+}
+
+.element .sector {
+  font-size: 2.4rem;
+}
+.element .read-more,
+.element .read-less {
+  color: #d9660e;
+  font-size: 2.4rem;
+  cursor: pointer;
+}
+.more {
+  grid-column: 2/3;
+}
+
+.more ul {
+  font-size: 1.8rem;
+  line-height: 1.8;
+  margin-left: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+/* 
+##############################
+          PERSONAS
+##############################
+*/
+
+/* 
+section-personas
+heading-personas
+personas
+  persona
+    persona-img-box
+      persona-img
+    persona-details-box
+      persona-name-age-box
+        persona-name
+        persona-age
+      persona-occupation
+*/
+
+.section-personas {
+  padding: 9.6rem 0;
+}
+.section-personas .container {
+  padding: 0 6.4rem;
+  position: relative;
+}
+
+.heading-personas {
+  margin-bottom: 3.2rem;
+}
+
+.personas {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 3.2rem;
+}
+
+.persona {
+  padding: 0.8rem 1.2rem;
+  background-color: #d9660e;
+  box-shadow: 0 15px 20px 0 rgb(0 0 0 / 20%);
+  border-radius: 9px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.persona:hover {
+  transform: translateY(-5%);
+}
+
+.persona-img-box {
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 2.4rem;
+}
+
+.persona-img {
+  display: block;
+  width: 100%;
+}
+
+.persona-details-box {
+  padding: 1.4rem 2.8rem;
+  border-radius: 9px;
+  background-color: #fff;
+}
+
+.persona-name-age-box {
+  display: flex;
+  gap: 1.6rem;
+  margin-bottom: 0.8rem;
+}
+
+.persona-name,
+.persona-age {
+  font-size: 1.6rem;
+}
+
+.persona-occupation {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.overlay {
+  position: fixed;
+  background-color: rgba(217, 102, 14, 0.2);
+  backdrop-filter: blur(5px);
+  height: 100vh;
+  width: 100vw;
+  z-index: 900;
+}
+
+.persona-more {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  width: 70rem;
+  /* will this work? just in case there is more content in the card it will grow to accomodate. */
+  max-width: 90%;
+  padding: 3.2rem 6.4rem;
+  background: #fff;
+  border-radius: 9px;
+}
+
+/* 
+
+background-text
+skills-box
+subsection-title
+skills
+goals-box
+goals
+needs-box
+needs
+*/
+
+.name {
+  font-size: 4.8rem;
+  color: #d9660e;
+}
+.occupation {
+  display: inline-block;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+}
+.title {
+  margin-bottom: 2.4rem;
+}
+
+.subsection-title {
+  width: max-content;
+  font-size: 2rem;
+  margin-bottom: 1.6rem;
+  box-shadow: 0 3px #d9660e;
+}
+
+.background-text {
+  font-size: 1.4rem;
+  line-height: 1.8;
+}
+
+.background-box,
+.skills-box,
+.goals-box {
+  margin-bottom: 2.4rem;
+}
+
+.background-box ul,
+.skills-box ul,
+.goals-box ul,
+.needs-box ul {
+  font-size: 1.4rem;
+  margin-left: 2.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.close-persona-more {
+  position: absolute;
+  color: #000;
+  top: 10px;
+  right: 10px;
+  padding: 0.8rem;
+  border: none;
+  background-color: #d9660e;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  box-shadow: 4px 4px #160a01;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.close-persona-more:active {
+  transform: translate(4px, 4px);
+  box-shadow: none;
+}
+
+.close-icon {
+  /* display: inline-block; */
+  color: #fff;
+  height: 3.6rem;
+  width: 3.6rem;
+  font-weight: 800;
+}
+
+.disable-scroll {
+  overflow: hidden;
+}
+
+/* 
+##############################
+          FOOTER
+##############################
+*/
+
+.footer {
+  /* padding: 2.4rem 6.4rem; */
+  padding: 3.2rem 6.4rem;
+  background-color: #fbf0e7;
+}
