@@ -240,6 +240,7 @@ ion-icon[name='close'] {
   flex-direction: column;
   gap: 3.2rem;
   gap: 1.6rem;
+  gap: 2.4rem;
   height: 100%;
 }
 
@@ -248,16 +249,15 @@ ion-icon[name='close'] {
   flex-direction: column;
   gap: 1.2rem;
   gap: 0.4rem;
+  gap: 0.8rem;
 }
 
 .sidebar-form label[for='top-n-sidebar'],
 .sidebar-form label[for='state-sidebar'],
 .sidebar-form label[for='climate-metric-sidebar'],
-.sidebar-form label[for='time-slice-sidebar'],
 .sidebar-form label[for='period-2-sidebar'],
 .sidebar-form label[for='period-1-sidebar'],
-.sidebar-form label[for='reference-station-sidebar'],
-.sidebar-form label[for='comparison-type-sidebar'] {
+.sidebar-form label[for='reference-station-sidebar'] {
   font-size: 1.8rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -266,37 +266,31 @@ ion-icon[name='close'] {
 .sidebar-form input[name='top-n-sidebar'],
 .sidebar-form select[name='state-sidebar'],
 .sidebar-form select[name='climate-metric-sidebar'],
-.sidebar-form select[name='time-slice-sidebar'],
 .sidebar-form select[name='period-2-sidebar'],
 .sidebar-form select[name='period-1-sidebar'],
-.sidebar-form select[name='reference-station-sidebar'],
-.sidebar-form select[name='comparison-type-sidebar'] {
+.sidebar-form select[name='reference-station-sidebar'] {
   border: none;
 }
 
 .sidebar-form input[name='top-n-sidebar']:focus,
 .sidebar-form select[name='state-sidebar']:focus,
 .sidebar-form select[name='climate-metric-sidebar']:focus,
-.sidebar-form select[name='time-slice-sidebar']:focus,
 .sidebar-form select[name='period-2-sidebar']:focus,
 .sidebar-form select[name='period-1-sidebar']:focus,
-.sidebar-form select[name='reference-station-sidebar']:focus,
-.sidebar-form select[name='comparison-type-sidebar']:focus {
+.sidebar-form select[name='reference-station-sidebar']:focus {
   box-shadow: inset 0 0 0 2px #160a01;
 }
 
 .sidebar-form input[name='top-n-sidebar'],
 .sidebar-form select[name='state-sidebar'],
 .sidebar-form select[name='climate-metric-sidebar'],
-.sidebar-form select[name='time-slice-sidebar'],
 .sidebar-form select[name='period-2-sidebar'],
 .sidebar-form select[name='period-1-sidebar'],
-.sidebar-form select[name='reference-station-sidebar'],
-.sidebar-form select[name='comparison-type-sidebar'] {
+.sidebar-form select[name='reference-station-sidebar'] {
   padding: 1.6rem 3.2rem;
   padding: 0.8rem 1.6rem;
-  padding: 0.6rem 1.2rem;
-  padding: 0.4rem 0.8rem;
+  /* padding: 0.6rem 1.2rem;
+  padding: 0.4rem 0.8rem; */
   background-color: #fbf0e7;
   cursor: pointer;
   position: relative;
@@ -316,8 +310,8 @@ ion-icon[name='close'] {
   font-weight: 600;
   padding: 1.6rem 3.2rem;
   padding: 0.8rem 1.6rem;
-  padding: 0.6rem 1.2rem;
-  padding: 0.4rem 0.8rem;
+  /* padding: 0.6rem 1.2rem;
+  padding: 0.4rem 0.8rem; */
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -332,11 +326,54 @@ ion-icon[name='close'] {
   background-color: lightgray;
 }
 
+.sidebar-form input[name='top-n-sidebar'] {
+  width: 9.6rem;
+}
+
 /* 
 ##############################
           MAIN
 ##############################
 */
+
+/* CHOOSE TABLE DROPDOWN */
+
+form[name='form-which-table'] {
+  margin-bottom: 3.4rem;
+}
+
+label[for='which-table'] {
+  font-size: 1.2rem;
+}
+
+select[name='which-table'] {
+  font-weight: 600;
+  font-size: 1.2rem;
+  padding: 0.8rem 1.6rem;
+  background-color: #fbf0e7;
+  border: none;
+}
+select[name='which-table']:focus {
+  box-shadow: inset 0 0 0 2px #160a01;
+}
+
+.display-table-btn {
+  cursor: pointer;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 9px;
+  padding: 0.8rem 1.6rem;
+  background-color: #d9660e;
+}
+
+form[name='form-which-table'] button:disabled {
+  pointer-events: none;
+  background-color: lightgray;
+}
+
+/* END CHOOSE TABLE */
 
 .main {
   background-color: #fff;
@@ -359,26 +396,48 @@ ion-icon[name='close'] {
   box-shadow: 0 3px #d9660e;
 }
 
+.results-subtitle {
+  display: inline-block;
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+  /* text-transform: uppercase; */
+}
+
 .content {
-  /* NEW */
+}
+
+.content-get {
   height: 100%;
   display: flex;
-  flex-direction: column;
-  gap: 1.6rem;
   justify-content: center;
   align-items: center;
-  /* END NEW */
 }
-ion-icon[name='build-outline'] {
+
+/* ion-icon[name='build-outline'] {
   color: #160a01;
   height: 3.6rem;
   width: 3.6rem;
-}
+} */
 
 .data-div {
   max-height: 45.7rem;
   max-height: 35rem;
   overflow-y: auto;
+}
+
+.title-box {
+  /* display: flex;
+  gap: 1.2rem;
+  align-items: center; */
+  margin-bottom: 2.4rem;
+  /* NEW */
+  /* position: sticky;
+  top: 0; */
+}
+.data-title {
+  width: max-content;
+  font-size: 2rem;
+  box-shadow: 0 3px #d9660e;
 }
 
 .download-btn {
@@ -410,10 +469,10 @@ ion-icon[name='build-outline'] {
 }
 
 /* NEW */
-.data-table thead {
+/* .data-table thead {
   position: sticky;
   top: 2rem;
-}
+} */
 /* END NEW */
 
 .data-table thead tr {
@@ -454,30 +513,6 @@ ion-icon[name='build-outline'] {
   border-bottom: 3px solid #4a6e7f;
   border-bottom: 3px solid #d9660e;
 }
-
-/* 
-##############################
-      SORT TABLE DROPDOWN/ SORT FUNCTIONALITY
-##############################
-*/
-
-/* EXPERIMENT */
-.sort-col-btn ion-icon {
-  opacity: 0;
-}
-
-.sort-col-btn:hover ion-icon,
-.sort-col-btn:hover ion-icon[name='arrow-up-outline'],
-.sort-col-btn:hover ion-icon[name='arrow-down-outline'] {
-  opacity: 1;
-  color: #160a01;
-}
-
-.sort-description {
-  position: sticky;
-  top: 0;
-}
-/* END EXPERIMENT */
 
 /* 
 ##############################

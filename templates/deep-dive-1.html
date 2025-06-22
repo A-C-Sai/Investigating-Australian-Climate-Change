@@ -121,6 +121,9 @@
                     <label for="state-sidebar">State</label>
                     <select name="state-sidebar" id="state-sidebar" required>
                         <option value="">--</option>
+                        {% for state_name in state_names %}
+                        <option value="{{ state_name }}">{{ state_name.replace('.','') }}</option>
+                        {% endfor %}
                     </select>
                 </div>
                 <div class="input">
@@ -129,47 +132,28 @@
                         <option value="">--</option>
                     </select>
                 </div>
-                <div class="input">
+                <!-- <div class="input">
                     <label for="comparison-type-sidebar">Comparison Type</label>
                     <select name="comparison-type-sidebar" id="comparison-type-sidebar" required disabled>
                         <option value="">--</option>
                     </select>
-                </div>
+                </div> -->
                 <div class="input">
                     <label for="period-1-sidebar">Time Period 1</label>
                     <select name="period-1-sidebar" id="period-1-sidebar" required disabled>
                         <option value="">--</option>
+                        {% for decade in decades["decades"] %}
+                        <option value="{{ decade }}">{{ decade }}'s</option>
+                        {% endfor %}
                     </select>
                 </div>
                 <div class="input">
                     <label for="period-2-sidebar">Time Period 2</label>
                     <select name="period-2-sidebar" id="period-2-sidebar" required disabled>
                         <option value="">--</option>
-                    </select>
-                </div>
-                <div class="input">
-                    <label for="time-slice-sidebar">Time Slice</label>
-                    <select name="time-slice-sidebar" id="time-slice-sidebar" required disabled>
-                        <option value="">--</option>
-                        <option value="Annual">Annual</option>
-                        <option value="January">January</option>
-                        <option value="February">February</option>
-                        <option value="March">March</option>
-                        <option value="April">April</option>
-                        <option value="May">May</option>
-                        <option value="June">June</option>
-                        <option value="July">July</option>
-                        <option value="August">August</option>
-                        <option value="September">September</option>
-                        <option value="October">October</option>
-                        <option value="November">November</option>
-                        <option value="December">December</option>
-                    </select>
-                </div>
-                <div class="input">
-                    <label for="climate-metric-sidebar">Climate Metric</label>
-                    <select name="climate-metric-sidebar" id="climate-metric-sidebar" required disabled>
-                        <option value="">--</option>
+                        {% for decade in decades["decades"] %}
+                        <option value="{{ decade }}">{{ decade }}'s</option>
+                        {% endfor %}
                     </select>
                 </div>
                 <div class="input">
@@ -179,7 +163,7 @@
                             id="top-n-sidebar"
                             type="number"
                             min = 1
-                            max = 20
+                            max = 50
                             step = 1
                             required
                             disabled
@@ -196,11 +180,67 @@
         </div>
         <!-- MAIN -->
         <div class="main">
-            <h2 class="results-title">Similar Rates of Change</h2>
-            <div class="content">
-                <ion-icon name="build-outline"></ion-icon>
-                <p style="font-size: 3.6rem;font-weight: 600;color: #D9660E;line-height: 1.5;text-align: center;">PAGE UNDER PRODUCTION<br/>MILESTONE - FINAL DELIVERABLE</p>
+            {% if data_subtitle %}
+            <span class="results-subtitle">{{ data_subtitle | safe }}</span>
+            {% endif %}
+            <h2 class="results-title">{{ data_title }}</h2>
+            {% if request_method == "GET" %}
+            <div class="content content-get">
+                <p style="font-size: 2.4rem;font-weight: 600;color: #d9660e67;line-height: 1.5;text-align: center;">PLEASE SELECT OPTIONS FROM THE MENU TO VIEW RESULTS</p>
             </div>
+            {% else %}
+            <!-- NEW FORM -->
+            <form name="form-which-table" style="display: flex; gap: 1.6rem;" action="">
+              <div style="display: flex;flex-direction: column;gap: 0.8rem;">
+                <label for="which-table">Choose a Table to Display:</label>
+                <select name="which-table" id="which-table">
+                  <option value="">--</option>
+                  {% for (table_name, _) in tables %}
+                  <option value="{{ table_name }}">{{ table_name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <button style="align-self: flex-end;" class="display-table-btn" type="button" disabled>Show Table</button>
+            </form>
+            <!-- END NEW FORM -->
+            <div class="content">
+              {% for (table_name, (table, table_columns,query)) in tables %}
+                  <div class="data-div {{ table_name.replace(' ', '-') }} hidden">
+                      <div class="title-box">
+                          <h3 class="data-title">{{ table_name }}</h3> 
+                      </div>
+                      <div class="table-box-wrapper">
+                        <div class="table-box">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <td style="text-align: center;">Row</td>
+                                        {% for column in table_columns %}
+                                        <th style="text-align: left;";>{{ column }}</th>
+                                        {% endfor %}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for row in table %}
+                                    {% set row_id = row[0] %}
+                                    {% set values = row[1:] %}
+                                    <tr>
+                                        <th>{{ row_id }}</th>
+                                        {% for val in values %}
+                                        <td>{{ val }}</td>
+                                        {% endfor %}
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                      </div>
+                      <!-- ADD HERE IF NECESSARY -->
+                  </div>
+              {% endfor %}
+                
+            </div>
+            {% endif %}
         </div>
         </div>
         <!-- FOOTER -->
@@ -222,13 +262,9 @@
             src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
             ></script>
         <!-- PAGE FUNCTIONALITY -->
-        <!-- <script src="../static/js/navigation.js"></script> -->
-        <!-- <script src="../static/js/sidebar.js"></script> -->
-        <!-- <script src="../static/js/form-1.js"></script> -->
-        <!-- <script src="../static/js/download-data.js"></script> -->
-        <!-- <script src="../static/js/sorting.js"></script> -->
-        <!-- <script src="../static/js/sorting-improved.js"></script> -->
-        <!-- <script src="../static/js/display-table.js"></script> -->
+        <script src="../static/js/sidebar.js"></script>
+        <script src="../static/js/form-2.js"></script>
+        <script src="../static/js/display-table.js"></script>
         <script>
             // Make sure year is updated automatically
             let currentYear = new Date().getFullYear();
