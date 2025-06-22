@@ -462,6 +462,131 @@ def region_wise_metrics(state, start_lat, end_lat, metric, period):
 
 
 
+
+
+def get_stations_in_state(state):
+    
+    with sqlite3.connect(DATABASE) as con:
+        state_id = pd.read_sql_query(
+            f'''
+            select state_id
+            from states
+            where state_name = "{state}";
+            '''
+            , con).loc[0, "state_id"]
+        
+        stations_df = pd.read_sql_query(
+            f'''
+              with exclude_stations as (
+      
+                select DISTINCT(site_id) as missing_stations
+                from bom_data bd
+                    RIGHT JOIN weather_stations ws on bd.Location = ws.site_id
+                where bd.Location IS NULL
+            )
+
+
+            select site_id, name
+            from weather_stations
+            where state_id = {state_id} AND
+            site_id NOT IN (select missing_stations from exclude_stations)
+            order by name;
+            '''
+            , con)
+        
+        return stations_df.to_dict(orient='records')
+
+
+
+def get_decades():
+
+    with sqlite3.connect(DATABASE) as con:
+        decades = pd.read_sql_query(
+            '''
+select DISTINCT(CAST(FLOOR(CAST(strftime("%Y",DMY) as INT) / 10) * 10 as TEXT)) as decades
+from bom_data
+'''
+,con)
+        
+        decades_list = list(decades.loc[:,"decades"].values)
+
+    return {"decades": decades_list}
+
+decades = get_decades()
+
+
+def get_station_name(station_id):
+    with sqlite3.connect(DATABASE) as con:
+        station_name = pd.read_sql_query(
+            f'''
+        select name
+        from weather_stations
+        where site_id = {station_id}
+''',con).loc[0,"name"]
+    
+    return station_name
+
+
+def get_similar_stations(metric, period_1, period_2, reference_station, topN):
+
+    metricNames = {'Precipitation':'avg rainfall (mm)','MaxTemp':'avg max temp (℃)','MinTemp':'avg min temp (℃)'}
+
+    period_1_end = int(period_1) + 9
+    period_2_end = int(period_2) + 9
+    metric_alias = metricNames[metric]
+
+    with sqlite3.connect(DATABASE) as con:
+
+        query = f'''
+        with period1_stats as (
+            select Location, AVG({metric}) as "{metric_alias} {period_1}'s"
+            from bom_data
+            where CAST(strftime('%Y', DMY) as INT) BETWEEN {period_1} AND {period_1_end}
+            group by Location
+        ),
+        period2_stats as (
+            select Location, AVG({metric}) as "{metric_alias} {period_2}'s"
+            from bom_data
+            where CAST(strftime('%Y', DMY) as INT) BETWEEN {period_1} AND {period_2_end}
+            group by Location
+        ),
+        combined_stats as (
+            select 
+                p1.Location,
+                "{metric_alias} {period_1}'s",
+                "{metric_alias} {period_2}'s",
+                100 * ("{metric_alias} {period_2}'s" - "{metric_alias} {period_1}'s") / "{metric_alias} {period_1}'s" as "% change"
+            from period1_stats p1
+                INNER JOIN period2_stats p2 on p1.Location = p2.Location
+            WHERE "{metric_alias} {period_1}'s" IS NOT NULL AND 
+                "{metric_alias} {period_2}'s" IS NOT NULL
+        ),
+        final_cte as (
+            select 
+                *,
+                "% change" - (select "% change" from combined_stats where Location = {reference_station}) as "relative difference",
+                ABS("% change" - (select "% change" from combined_stats where Location = {reference_station})) as "absDiff"
+            from combined_stats
+            order by absDiff
+        )
+        select
+            name as "station name",
+            ROUND("{metric_alias} {period_1}'s", 3) as "{metric_alias} {period_1}'s",
+            ROUND("{metric_alias} {period_2}'s", 3) as "{metric_alias} {period_2}'s",
+            ROUND("% change",4) as "% change",
+            ROUND("relative difference", 5) as "relative difference (%)"
+        from final_cte fc
+            LEFT JOIN weather_stations ws on fc.Location = ws.site_id
+        where "station name" IS NOT NULL
+        order by absDiff
+        limit {int(topN) + 1}
+    '''
+        df = pd.read_sql_query(query, con)
+
+    return [np.concatenate([np.arange(df.shape[0]).reshape(-1,1),df.values],axis=1).tolist(), list(df.columns), query]
+   
+
+
 def download_data(query):
     with sqlite3.connect(DATABASE) as con:
         df = pd.read_sql_query(query,con)
