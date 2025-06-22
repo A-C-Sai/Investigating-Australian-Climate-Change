@@ -10,7 +10,7 @@ let currentTable = {};
 
 showTableBtn.addEventListener('click', function () {
   if (currentTable['table']) {
-    // FIXME: this function is repeating, change to function if time permits
+    // FIXME: these operations are repeating, change to function if time permits
     // resetting table when the user decides to look at a new table.
     console.log(currentTable['table']);
     currentTable['activeColObj'] = undefined;
