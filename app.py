@@ -47,9 +47,9 @@ def home():
         stat4 = stat4)
 
 
-# @app.route('/about')
-# def about():
-#     return render_template('about.html')
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 
 @app.route('/task2A', methods=['GET','POST'])
@@ -100,7 +100,31 @@ def task_2A():
 
 @app.route('/task3A', methods=['GET','POST'])
 def task_3A():
-    return render_template('deep-dive-1.html')
+    state_names = database_functionality.states_names
+    decades = database_functionality.decades
+    
+    if request.method == "GET":
+        data_title = 'Similar Rates of Change'
+        return render_template('deep-dive-1.html', state_names = state_names, decades = decades, data_title = data_title, request_method = "GET")
+    else:
+        form = request.form
+        input_reference_station = form['reference-station-sidebar']
+        input_period_1 = form['period-1-sidebar']
+        input_period_2 = form['period-2-sidebar']
+        # input_climate_metric = form['climate-metric-sidebar']
+        input_top_n = form['top-n-sidebar']
+       
+        reference_stations_name = database_functionality.get_station_name(input_reference_station)
+        data_title = f'{reference_stations_name.lower().title()} | Similar Rates of Change'
+        data_subtitle = f'{input_period_1}\'s Vs. {input_period_2}\'s'
+
+        similarity_wrt_rainfall = ('Similarity w.r.t Rainfall', database_functionality.get_similar_stations("Precipitation", input_period_1, input_period_2, input_reference_station, input_top_n))
+
+        similarity_wrt_maxtemp = ('Similarity w.r.t Max Temp', database_functionality.get_similar_stations("MaxTemp", input_period_1, input_period_2, input_reference_station, input_top_n))
+
+        similarity_wrt_mintemp = ('Similarity w.r.t Min Temp', database_functionality.get_similar_stations("MinTemp", input_period_1, input_period_2, input_reference_station, input_top_n))
+        
+        return render_template('deep-dive-1.html', state_names = state_names, decades = decades, data_title = data_title, data_subtitle = data_subtitle, tables = [similarity_wrt_rainfall,similarity_wrt_maxtemp,similarity_wrt_mintemp], request_method = "POST")
 
 
 
@@ -174,6 +198,10 @@ def get_min_max_lat(state):
     return jsonify(database_functionality.get_min_max_lat(state))
 
 
+@app.route('/get_stations_in_state/<state>')
+def get_stations_in_state(state):
+    return jsonify(database_functionality.get_stations_in_state(state))
+
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8090)
+    app.run(debug=True, port=8091)
