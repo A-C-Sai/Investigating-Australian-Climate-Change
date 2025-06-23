@@ -2,7 +2,7 @@
 
 ## 0. Overview
 
-- While this was originally an 1st yr university project, I have truned it into a personal project to implement the newly learnt HTML, CSS, JS skills.
+- While this was originally an 1st yr university project, I have truned it into a personal project to implement newly learnt HTML, CSS, JS skills.
 
 - During this project I have learnt:
   - To Build:
