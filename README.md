@@ -1,4 +1,16 @@
-# GUIDE TO PROJECT
+# PROJECT GUIDE
+
+## 0. Overview
+
+- While this was originally an 1st yr university project, I have truned it into a personal project to implement the newly learnt HTML, CSS, JS skills.
+
+- During this project I have learnt:
+  - To Build:
+    - Accordion ui
+    - Modal windows
+    - Intuitive tables with in-built sorting from scratch
+    - Layered Navigation (replaced by single layer)
+  - to design a website by taking inspiration from websites like Dribble.
 
 ## 1. Create a project folder & virtual environment
 
@@ -97,3 +109,11 @@ PROJECT FOLDER
 ```
 
 - FINAL NOTE: make sure you activate the virtual environment you have created for this project each time you are working on it. This ensures you are working in an isolated environment and avoid potentially conflicting libraries and packages that are installed on an operating system.
+
+# 5. Possible Improvements
+
+- Using Postgres or MySql Database
+- Current download functionality only limited to short queries
+- Better data exploration & prepration
+- Analysis of data can be improved hugely (wasn't the main purpose of the project)
+- Can use a better Dataset with rich features

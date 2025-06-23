@@ -169,9 +169,7 @@ def download_data_v2(query,title):
 @app.route('/in_production')
 def in_production():
     return ('''
-            <h1 style="color:red; margin-bottom:24px;">THESE PAGES BELONG TO SUB-TASK B.<br/> PLEASE REFER TO THE WORK OF MY GROUP MEMBER <br/> 
-            <span style="color:#000;">STUDENT ID: s4153182, STUDENT NAME: LUCAS WONG.</span><br/> 
-            THIS ISSUE HAD ALREADY BEEN DISCUSSED AND RESOLVED WITH STAFF MEMBERS.</h1>
+            <h1 style="color:red; ">NOT YET IMPLEMENTED</h1>
             <ul>
                 <li>
                     <a href="/home">Task 1A</a>
